@@ -19,17 +19,26 @@ const colorsContainer = document.createElement('div');
 colorsContainer.id = 'colors-container';
 gameContainer.appendChild(colorsContainer);
 
+// Cria o placar
+const score = document.createElement('p');
+score.id = 'score';
+let scoreValue = 0;
+score.innerHTML = `Placar: ${scoreValue}`;
+gameContainer.appendChild(score);
+
 // Cria o texto que mostra a resposta
 const answer = document.createElement('p');
 answer.id = 'answer';
 answer.innerHTML = 'Escolha uma cor';
-gameContainer.appendChild(answer);
+gameContainer.insertBefore(answer, gameContainer.lastChild);
 
 // Função que verifica se a resposta está correta
 function checkAnswer() {
   const colorChosen = this.style.backgroundColor;
   if (colorChosen === `rgb${rgbColor.innerHTML}`) {
     answer.innerHTML = 'Acertou!';
+    scoreValue += 3;
+    score.innerHTML = `Placar: ${scoreValue}`;
   } else {
     answer.innerHTML = 'Errou! Tente novamente!';
   }
