@@ -35,15 +35,24 @@ function checkAnswer() {
   }
 }
 
+// Função que remove as cores do jogo anterior
+function removePreviousColors() {
+  const getCurrentColors = document.querySelectorAll('.ball');
+  getCurrentColors.forEach((item) => {
+    item.remove();
+  });
+}
+
 // Função que gera um novo jogo
 function generateNewGame() {
+  removePreviousColors();
   rgbColor.innerHTML = generateRandomColor();
   const numberOfColors = 6;
+  answer.innerHTML = 'Escolha uma cor';
 
-  // Número aleatório usado para definir a respota correta
+  // Número aleatório de 1 a 6 usado para definir a respota correta
   const drawNumber = Math.floor(Math.random() * 6) + 1;
-
-  for (let index = 0; index < numberOfColors; index += 1) {
+  for (let index = 1; index <= numberOfColors; index += 1) {
     const colors = document.createElement('div');
     colors.className = 'ball';
     colorsContainer.appendChild(colors);
@@ -57,3 +66,10 @@ function generateNewGame() {
 }
 
 generateNewGame();
+
+// Cria o botão que reseta/inicia o jogo
+const btnResetGame = document.createElement('button');
+btnResetGame.id = 'reset-game';
+btnResetGame.innerText = 'Resetar o jogo/cores';
+gameContainer.appendChild(btnResetGame);
+btnResetGame.addEventListener('click', generateNewGame);
